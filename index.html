@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#24132e">
+  <title>A Special Surprise 💗</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --pink: #ff5fa2; --light-pink: #ffd0e5; --purple: #bd7bff; }
+    html { scroll-behavior: smooth; width: 100%; overflow-x: clip; }
+    body {
+      width: 100%; min-width: 0; max-width: 100%; overflow-x: clip;
+      font-family: 'Poppins', sans-serif; color: #fff; background: #170d20;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+      background: radial-gradient(ellipse at top left, #63264e 0%, transparent 50%),
+                  radial-gradient(ellipse at bottom right, #45215f 0%, transparent 50%),
+                  linear-gradient(135deg, #170d20, #24132e, #170d20);
+    }
+    button { font: inherit; }
+
+    /* First surprise screen */
+    #surprise {
+      min-height: 100vh; min-height: 100svh; width: 100%; padding: 30px 18px;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; transition: opacity .65s, transform .65s;
+    }
+    .gift { font-size: clamp(60px, 16vw, 85px); filter: drop-shadow(0 0 25px #ff5fa277); animation: float 2s ease-in-out infinite; }
+    @keyframes float { 0%,100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-14px) rotate(5deg); } }
+    .small-title { margin-top: 25px; color: #ffc3df; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; }
+    #surprise h1 { max-width: 100%; font-size: clamp(32px, 8vw, 66px); margin: 18px 0; line-height: 1.25; overflow-wrap: anywhere; }
+    .gradient-text {
+      color: #ff9ac8; background: linear-gradient(90deg, #ff8bbc, #e6a3ff, #ffb8d9);
+      background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .description { width: 100%; max-width: 420px; color: #d8c4dc; font-size: 14px; line-height: 1.9; }
+    .reveal-btn {
+      display: inline-block; max-width: 100%; margin-top: 28px; padding: 15px 25px;
+      border: 1px solid #ffffff44; border-radius: 50px; color: white; font-size: 14px;
+      font-weight: 600; cursor: pointer; background: linear-gradient(110deg, #ff4f9a, #b76aff);
+      box-shadow: 0 0 35px #ff5fa244; transition: transform .3s, box-shadow .3s;
+    }
+    .reveal-btn:hover { transform: scale(1.04); box-shadow: 0 0 50px #ff5fa277; }
+    .hint { margin-top: 18px; color: #a997b4; font-size: 11px; }
+
+    /* Revealed birthday page */
+    #birthday { display: none; opacity: 0; width: 100%; padding-bottom: 35px; }
+    #birthday.show { display: block; animation: revealPage 1s forwards; }
+    @keyframes revealPage { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .hero {
+      width: 100%; min-height: 70vh; min-height: 70svh; padding: 85px 18px 55px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    }
+    .badge { max-width: 100%; border: 1px solid #ff9ac855; background: #ff8bbc12; color: #ffbad9; padding: 9px 15px; border-radius: 30px; font-size: 11px; letter-spacing: 2px; }
+    .hero h1 { width: 100%; max-width: 950px; font-size: clamp(32px, 7vw, 75px); line-height: 1.35; margin: 25px 0 18px; overflow-wrap: anywhere; }
+    .name { display: block; max-width: 100%; font-family: 'Pacifico', cursive; font-size: clamp(24px, 5.5vw, 53px); line-height: 1.5; font-weight: 400; color: #ff9ac8; text-shadow: 0 0 35px #ff5fa233; margin-top: 8px; overflow-wrap: anywhere; }
+    .hero p { width: 100%; max-width: 570px; color: #d9c6df; font-size: 14px; line-height: 1.9; overflow-wrap: anywhere; }
+    .heart { font-size: 44px; margin-top: 22px; animation: heartbeat 1.4s infinite; }
+    @keyframes heartbeat { 0%,100% { transform: scale(1); } 15% { transform: scale(1.2); } 30% { transform: scale(1); } 45% { transform: scale(1.12); } }
+
+    .gallery-section { width: 100%; max-width: 1200px; margin: auto; padding: 42px 22px 65px; }
+    .section-heading { text-align: center; margin-bottom: 32px; }
+    .section-heading h2 { font-size: clamp(26px, 5vw, 42px); line-height: 1.4; overflow-wrap: anywhere; }
+    .section-heading p { color: #bda9c8; font-size: 13px; margin-top: 12px; }
+    .gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 15px; width: 100%; }
+    .photo { position: relative; min-width: 0; overflow: hidden; aspect-ratio: 3 / 4; border: 1px solid #ffb8d933; border-radius: 16px; background: #35213d; cursor: pointer; opacity: 0; transform: translateY(20px); }
+    #birthday.show .photo { animation: photoReveal .65s ease forwards; }
+    #birthday.show .photo:nth-child(2) { animation-delay: .08s; }
+    #birthday.show .photo:nth-child(3) { animation-delay: .16s; }
+    #birthday.show .photo:nth-child(4) { animation-delay: .24s; }
+    #birthday.show .photo:nth-child(5) { animation-delay: .32s; }
+    #birthday.show .photo:nth-child(6) { animation-delay: .40s; }
+    #birthday.show .photo:nth-child(7) { animation-delay: .48s; }
+    #birthday.show .photo:nth-child(8) { animation-delay: .56s; }
+    #birthday.show .photo:nth-child(9) { animation-delay: .64s; }
+    #birthday.show .photo:nth-child(10) { animation-delay: .72s; }
+    #birthday.show .photo:nth-child(11) { animation-delay: .80s; }
+    #birthday.show .photo:nth-child(12) { animation-delay: .88s; }
+    @keyframes photoReveal { to { opacity: 1; transform: translateY(0); } }
+    .photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .45s; }
+    .photo:hover img { transform: scale(1.06); }
+    .photo::after { content: "♡"; position: absolute; right: 10px; top: 7px; font-size: 23px; text-shadow: 0 2px 10px #0008; pointer-events: none; }
+
+    .wish { width: calc(100% - 36px); max-width: 750px; margin: 10px auto 55px; padding: 42px 26px; text-align: center; border: 1px solid #ff9ac833; background: linear-gradient(140deg, #ff83bd12, #b76aff10); border-radius: 25px; overflow-wrap: anywhere; }
+    .wish h2 { font-size: clamp(25px, 5vw, 30px); line-height: 1.4; }
+    .wish p { margin-top: 20px; color: #e0cee4; font-size: 14px; line-height: 2; }
+    .wish .signature { color: #ff9ac8; font-family: 'Pacifico', cursive; font-size: 24px; margin-top: 24px; }
+    footer { text-align: center; color: #a995b2; font-size: 12px; line-height: 1.8; padding: 24px 15px; border-top: 1px solid #ffffff10; }
+
+    /* Full-screen image viewer */
+    #lightbox { display: none; position: fixed; inset: 0; z-index: 50; align-items: center; justify-content: center; padding: 20px; background: #100916f5; }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: 95vw; max-height: 85vh; object-fit: contain; border-radius: 15px; }
+    .close { position: absolute; top: 12px; right: 20px; font-size: 38px; line-height: 1; cursor: pointer; }
+    .floating { position: fixed; top: -35px; z-index: 100; pointer-events: none; animation: fall linear forwards; }
+    @keyframes fall { to { transform: translateY(110vh) rotate(500deg); opacity: 0; } }
+
+    /* Tablet */
+    @media (max-width: 850px) {
+      .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+      .gallery-section { padding-left: 18px; padding-right: 18px; }
+    }
+    /* Phones */
+    @media (max-width: 600px) {
+      #surprise { padding: 25px 18px; }
+      .small-title { font-size: 10px; letter-spacing: 3px; }
+      .description { font-size: 13px; }
+      .hero { min-height: auto; padding: 75px 16px 45px; }
+      .badge { font-size: 9px; letter-spacing: 1.2px; padding: 8px 12px; }
+      .hero h1 { font-size: clamp(30px, 8vw, 44px); line-height: 1.4; margin: 22px 0 16px; }
+      .name { font-size: clamp(23px, 6.4vw, 36px); line-height: 1.55; margin-top: 5px; }
+      .hero p { max-width: 480px; font-size: 13px; line-height: 1.85; }
+      .gallery-section { padding: 32px 13px 48px; }
+      .section-heading { margin-bottom: 24px; }
+      .section-heading h2 { font-size: clamp(24px, 6.5vw, 34px); }
+      .section-heading p { font-size: 12px; }
+      .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .photo { border-radius: 12px; }
+      .wish { width: calc(100% - 26px); padding: 30px 17px; margin-bottom: 40px; border-radius: 20px; }
+      .wish p { font-size: 13px; line-height: 1.9; }
+      .wish .signature { font-size: 22px; }
+      .reveal-btn { padding: 14px 21px; font-size: 13px; }
+    }
+    @media (max-width: 360px) {
+      .gallery-section { padding-left: 10px; padding-right: 10px; }
+      .gallery { gap: 7px; }
+      .name { font-size: 22px; }
+      .hero h1 { font-size: 29px; }
+      .gift { font-size: 62px; }
+      .badge { font-size: 8px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- First screen: surprise -->
+  <section id="surprise">
+    <div class="gift" aria-hidden="true">🎁</div>
+    <div class="small-title">Something special for you</div>
+    <h1>Hey, <span class="gradient-text">Bondhu!</span><br>Are You Ready?</h1>
+    <p class="description">Someone amazing deserves something special today. I made a little surprise just for you, mmh. Ready to discover it? 💗</p>
+    <button class="reveal-btn" type="button" onclick="revealBirthday()">See your surprise 💗</button>
+    <div class="hint">✦ Made with love, just for you ✦</div>
+  </section>
+
+  <!-- Birthday page appears after reveal -->
+  <main id="birthday">
+    <header class="hero">
+      <div class="badge">✦ TODAY IS ALL ABOUT YOU ✦</div>
+      <h1>
+        Happy Birthday
+        <span class="name">Dear Best Friend</span>
+        <span class="name">Fahim Monayem Tanik</span>
+        <span class="name">(Tempu) 💗</span>
+      </h1>
+      <p>Happy Birthday, Tempuuu! 🥳💗 Hope your day is full of happiness, laughter, cake, and crazy memories! 😂🫶 Stay the same funny and amazing dude you are. Keep smiling, keep growing, and keep winning in life. Wishing you lots of success, happiness, and good vibes. Enjoy your day to the fullest, bro! ❤️🎂✨</p>
+      <div class="heart" aria-hidden="true">💖</div>
+    </header>
+
+    <section class="gallery-section" aria-label="Birthday photo gallery">
+      <div class="section-heading">
+        <h2>Little Moments, <span class="gradient-text">Big Memories</span></h2>
+        <p>Some pictures, countless memories. 📸</p>
+      </div>
+      <div class="gallery">
+        <div class="photo" onclick="openPhoto(this)"><img src="assets/1.jpg" alt="Memory 1" loading="lazy"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="assets/2.jpg" alt="Memory 2" loading="lazy"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="assets/3.jpg" alt="Memory 3" loading="lazy"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="assets/4.jpg" alt="Memory 4" loading="lazy"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="assets/5.jpg" alt="Memory 5" loading="lazy"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="assets/6.jpg" alt="Memory 6" loading="lazy"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="assets/7.jpg" alt="Memory 7" loading="lazy"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="assets/8.jpg" alt="Memory 8" loading="lazy"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="assets/9.jpg" alt="Memory 9" loading="lazy"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="assets/10.jpg" alt="Memory 10" loading="lazy"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="assets/11.jpg" alt="Memory 11" loading="lazy"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="assets/12.jpg" alt="Memory 12" loading="lazy"></div>
+      </div>
+    </section>
+
+    <section class="wish">
+      <div style="font-size:45px" aria-hidden="true">🎂</div>
+      <h2>One Last <span class="gradient-text">Thing...</span></h2>
+      <p>Happy Birthday, Mmh! 💗<br>Amader friendship bondhu na vaier moto. Jani kotodur amader ei bondhon thakbe, Allah er kache doa kori life er sesh somoy porjonto amader friendship otut thakuk. Again wish you Happy Birthday Mmh. Have the most wonderful birthday ever! 🎉</p>
+      <div class="signature">With lots of love ♡</div>
+      <button class="reveal-btn" type="button" onclick="celebrate()">Send You Some Love 💕</button>
+    </section>
+
+    <footer>Made with 💗 especially for Tempu<br><br>A little surprise to make your day brighter ✨</footer>
+  </main>
+
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Full-size photo viewer" onclick="closePhoto()">
+    <button class="close" type="button" aria-label="Close photo" onclick="closePhoto()">&times;</button>
+    <img id="bigPhoto" src="" alt="Full-size memory">
+  </div>
+
+  <script>
+    function revealBirthday() {
+      const surprise = document.getElementById('surprise');
+      const birthday = document.getElementById('birthday');
+      surprise.style.opacity = '0';
+      surprise.style.transform = 'scale(0.96)';
+      setTimeout(() => {
+        surprise.style.display = 'none';
+        birthday.classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        celebrate();
+      }, 550);
+    }
+
+    function openPhoto(element) {
+      const img = element.querySelector('img');
+      if (!img.complete || img.naturalWidth === 0) {
+        alert('Please check that ' + img.getAttribute('src') + ' exists.');
+        return;
+      }
+      document.getElementById('bigPhoto').src = img.src;
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    function closePhoto() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closePhoto();
+    });
+
+    function celebrate() {
+      const emojis = ['💗', '💕', '✨', '🌸', '💖', '🎉'];
+      for (let i = 0; i < 35; i++) {
+        const item = document.createElement('div');
+        item.className = 'floating';
+        item.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        item.style.left = Math.random() * 100 + 'vw';
+        item.style.fontSize = (14 + Math.random() * 20) + 'px';
+        item.style.animationDuration = (2.5 + Math.random() * 3) + 's';
+        item.style.animationDelay = Math.random() * 0.5 + 's';
+        document.body.appendChild(item);
+        item.addEventListener('animationend', () => item.remove());
+      }
+    }
+  </script>
+</body>
+</html>
